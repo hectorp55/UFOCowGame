@@ -8,6 +8,20 @@ public class UfoController : MonoBehaviour
 
     void Update()
     {
-        ufo.Hover(Input.GetAxis("Horizontal"));
+        ListenForMovement();
+        ListenForAbduction();
+    }
+
+    private void ListenForMovement() {
+        ufo.Hover(Input.GetAxis(InputConstants.Horizontal));
+    }
+
+    private void ListenForAbduction() {
+        if (Input.GetButtonDown(InputConstants.Abduct)) {
+            ufo.BeamOn();
+        }
+        if (Input.GetButtonUp(InputConstants.Abduct)) {
+            ufo.BeamOff();
+        }
     }
 }

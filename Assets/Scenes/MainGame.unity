@@ -366,6 +366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   beam: {fileID: 1131826626}
+  manager: {fileID: 0}
 --- !u!114 &233480719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,7 +391,7 @@ GameObject:
   - component: {fileID: 324518497}
   m_Layer: 0
   m_Name: Pasture
-  m_TagString: Untagged
+  m_TagString: Pasture
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -438,9 +439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab9fbfb9314c54e259f8a0d666faef25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cowsInField: 0
-  pasture: {fileID: 324518496}
-  cowPrefab: {fileID: 8074072847440284219, guid: f79a76cb765eb4527a0f3f5546836273, type: 3}
+  CowPrefab: {fileID: 8074072847440284219, guid: f79a76cb765eb4527a0f3f5546836273, type: 3}
 --- !u!4 &793927714
 Transform:
   m_ObjectHideFlags: 0
@@ -533,6 +532,7 @@ GameObject:
   - component: {fileID: 1115688203}
   - component: {fileID: 1115688202}
   - component: {fileID: 1115688201}
+  - component: {fileID: 1115688205}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -620,6 +620,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1115688205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115688200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa22ca2fa3b624f9abea611fd8b78ca2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1131826626
 GameObject:
   m_ObjectHideFlags: 0
@@ -1084,7 +1096,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2137127547}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1115688205}
+        m_TargetAssemblyTypeName: MainButtons, Assembly-CSharp
+        m_MethodName: ReturnHome
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2137127547
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class Ufo : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public GameObject beam;
+    public GameManager manager;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -34,7 +35,7 @@ public class Ufo : MonoBehaviour
 
     public void CaptureCow(GameObject cow) {
         if (cow.CompareTag(TagConstants.Cow)) {
-            Destroy(cow);
+            GameManager.Instance.CaptureCow(cow);
         }
     }
 }

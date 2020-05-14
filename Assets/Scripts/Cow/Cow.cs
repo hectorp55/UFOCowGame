@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Cow : MonoBehaviour
 {
+    public bool correctCow;
     AudioSource mooAudioSource;
 
     // Start is called before the first frame update

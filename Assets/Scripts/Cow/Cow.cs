@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class Cow : MonoBehaviour
 {
+    AudioSource mooAudioSource;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        mooAudioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void Moo()
+    {
+        mooAudioSource.Play(0);
     }
 }

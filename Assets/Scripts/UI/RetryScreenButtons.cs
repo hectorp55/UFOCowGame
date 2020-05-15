@@ -5,8 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class RetryScreenButtons : MonoBehaviour
 {
-    public void RetryGame() {
+    public GameObject ContinueButton;
+
+    void Start()
+    {
+        ContinueButton.SetActive(GameManager.Instance?.IsMissionSuccessful ?? false);
+    }
+
+    public void ContinueGame() {
         LoadScene("MainGame");
+    }
+
+    public void QuitGame() {
+        LoadScene("Title");
     }
 
     private void LoadScene(string sceneName) {

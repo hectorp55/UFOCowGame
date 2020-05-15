@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
     public List<Cow> CapturedCows { get; private set; }
     public int GoodCowCount { get; private set; }
     public int BadCowCount { get; private set; }
+    public bool IsMissionSuccessful { get; private set; }
     public GameObject Pasture { get; private set; }
     public GameObject CowPrefab;
  
@@ -17,10 +18,7 @@ public class GameManager : MonoBehaviour {
 
         CapturedCows = new List<Cow>();
         Pasture = GameObject.FindWithTag(TagConstants.Pasture);
-    }
-
-    void Start() {
-        StartMission();
+        IsMissionSuccessful = true;
     }
 
     public void StartMission() {
@@ -33,11 +31,15 @@ public class GameManager : MonoBehaviour {
 
     public void CompleteMission() {
         SceneManager.LoadScene("Retry");
+
+        IsMissionSuccessful = IsMissionSuccessful && GoodCowCount == CapturedCows.Count;
     }
 
     public void CaptureCow(GameObject cow) {
         // Add Score to Total
-        CapturedCows.Add(cow.GetComponent<Cow>());
+        Cow captueredCow = cow.GetComponent<Cow>();
+        CapturedCows.Add(captueredCow);
+        IsMissionSuccessful = IsMissionSuccessful && captueredCow.correctCow;
         Destroy(cow);
     }
 

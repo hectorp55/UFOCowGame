@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class TitleScreenButtons : MonoBehaviour
 {
     public void StartGame() {
-        LoadScene("MainGame");
+        LoadScene("Mission");
     }
 
     private void LoadScene(string sceneName) {

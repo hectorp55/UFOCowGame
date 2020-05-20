@@ -7,9 +7,13 @@ public class RetryScreenButtons : MonoBehaviour
 {
     public GameObject ContinueButton;
 
+    private GameManager manager;
+
     void Start()
     {
-        ContinueButton.SetActive(GameManager.Instance?.IsMissionSuccessful ?? false);
+        manager = GameManager.GetManager();
+
+        ContinueButton.SetActive(manager?.IsMissionSuccessful ?? false);
     }
 
     public void ContinueGame() {
@@ -17,6 +21,7 @@ public class RetryScreenButtons : MonoBehaviour
     }
 
     public void QuitGame() {
+        manager.GameOver();
         LoadScene("Title");
     }
 

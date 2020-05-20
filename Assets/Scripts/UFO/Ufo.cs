@@ -8,6 +8,11 @@ public class Ufo : MonoBehaviour
     public GameObject beam;
     public GameManager manager;
 
+    void Start()
+    {
+        manager = GameManager.GetManager();
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         CaptureCow(other.gameObject);
@@ -35,7 +40,7 @@ public class Ufo : MonoBehaviour
 
     public void CaptureCow(GameObject cow) {
         if (cow.CompareTag(TagConstants.Cow)) {
-            GameManager.Instance.CaptureCow(cow);
+            manager.CaptureCow(cow);
         }
     }
 }

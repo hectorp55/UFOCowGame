@@ -4,26 +4,36 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
-    public static GameManager Instance { get; private set; }
     public List<Cow> CapturedCows { get; private set; }
     public int GoodCowCount { get; private set; }
     public int BadCowCount { get; private set; }
     public bool IsMissionSuccessful { get; private set; }
-    public GameObject Pasture { get; private set; }
-    public GameObject CowPrefab;
- 
-    void Awake() {
-        if (Instance == null) { Instance = this; }
-        else { Destroy(gameObject); }
+    public int MissionCount { get; private set; }
 
-        CapturedCows = new List<Cow>();
-        Pasture = GameObject.FindWithTag(TagConstants.Pasture);
-        IsMissionSuccessful = true;
+    public GameObject CowPrefab; 
+
+    void Awake()
+    {
+        if (FindObjectsOfType<GameManager>().Length == 1) {
+            DontDestroyOnLoad(gameObject); 
+        }
+        else {
+            Destroy(gameObject); 
+        }
     }
 
-    public void StartMission() {
+    public static GameManager GetManager() {
+        return GameObject.FindObjectOfType<GameManager>();
+    }
+
+    public void StartNewMission() {
+        // Reset Values
+        CapturedCows = new List<Cow>();
+        IsMissionSuccessful = true;
+        MissionCount++;
+        
+        // Spawn Cows
         int cowsInField = Random.Range(1, 5);
-        //Spawn Cows
         for(int i = 0; i < cowsInField; i++) {
             SpawnCow();
         }
@@ -43,9 +53,14 @@ public class GameManager : MonoBehaviour {
         Destroy(cow);
     }
 
+    public void GameOver() {
+        Destroy(gameObject);
+    }
+
     private void SpawnCow() {
         // Spawn Cow
-        GameObject spawnedCow = Instantiate(CowPrefab, Pasture.transform);
+        GameObject pasture = GameObject.FindWithTag(TagConstants.Pasture);
+        GameObject spawnedCow = Instantiate(CowPrefab, pasture.transform);
         int correctCow = Random.Range(0, 2); // (Inclusive, Exclusive) -.-
         float startingLocation = Random.Range(ScreenConstants.LeftBound, ScreenConstants.RightBound);
         

@@ -5,6 +5,6 @@ using UnityEngine;
 public class MainButtons : MonoBehaviour
 {
     public void ReturnHome() {
-        GameManager.Instance.CompleteMission();
+        GameManager.GetManager().CompleteMission();
     }
 }

@@ -21,7 +21,7 @@ public class RetryScreenButtons : MonoBehaviour
     }
 
     public void QuitGame() {
-        manager.GameOver();
+        manager?.GameOver();
         LoadScene("Title");
     }
 

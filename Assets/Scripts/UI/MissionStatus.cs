@@ -16,7 +16,6 @@ public class MissionStatus : MonoBehaviour
 
     void Update()
     {
-        MissionCountText.text = $"Mission {GameManager.GetManager().MissionCount}";
-
+        MissionCountText.text = $"Mission {GameManager.GetManager()?.MissionCount}";
     }
 }

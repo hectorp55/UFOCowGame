@@ -17,7 +17,7 @@ public class RetryScreenButtons : MonoBehaviour
     }
 
     public void ContinueGame() {
-        LoadScene("MainGame");
+        LoadScene("Mission");
     }
 
     public void QuitGame() {

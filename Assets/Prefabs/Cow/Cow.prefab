@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 259957960983107376}
-  - component: {fileID: 4371805525365733433}
   - component: {fileID: 3906982919537263814}
   - component: {fileID: 585209875469321367}
   - component: {fileID: -424305645691211141}
   - component: {fileID: -1846415947849177264}
+  - component: {fileID: 3554493704393624163}
   m_Layer: 0
   m_Name: Cow
   m_TagString: Cow
@@ -35,18 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4371805525365733433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8074072847440284219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d6fdd9324af44987ba66935f1bf70ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!70 &3906982919537263814
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -231,3 +219,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3554493704393624163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8074072847440284219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9845e3f154b0d4bdb829a2f67a7b6f0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

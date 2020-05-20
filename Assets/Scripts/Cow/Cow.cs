@@ -2,25 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cow : MonoBehaviour
+public class Cow
 {
     public bool correctCow;
-    AudioSource mooAudioSource;
+    public Vector3 spawnLocation;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        mooAudioSource = GetComponent<AudioSource>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void Moo()
-    {
-        mooAudioSource.Play(0);
+    public Cow(bool isCorrect, Vector3 spawnLoc) {
+        correctCow = isCorrect;
+        spawnLocation = spawnLoc;
     }
 }

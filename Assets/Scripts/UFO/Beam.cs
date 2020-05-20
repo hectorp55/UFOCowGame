@@ -18,7 +18,7 @@ public class Beam : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         cowToLift = other.gameObject.GetComponent<Rigidbody2D>();
-		other.gameObject.GetComponent<Cow>().Moo();
+		other.gameObject.GetComponent<CowController>().Moo();
         isCowInRange = true;
     }
 

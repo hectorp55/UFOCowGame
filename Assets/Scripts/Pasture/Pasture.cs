@@ -6,6 +6,6 @@ public class Pasture : MonoBehaviour
 {
     void Start()
     {
-        GameManager.GetManager().StartNewMission();
+        GameManager.GetManager().StartNewMission(gameObject);
     }  
 }

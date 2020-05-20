@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Cow
   - Pasture
+  - MissionReport
   layers:
   - Default
   - TransparentFX

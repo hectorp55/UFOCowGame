@@ -22,7 +22,7 @@ public class MissionRecap : MonoBehaviour
 
         // Display Mission Status
         string status = manager?.IsMissionSuccessful ?? false ? "Success" : "Failure";
-        missionStatus.text = $"Mission {manager?.MissionCount ?? 1} {status}";
+        missionStatus.text = $"Mission {manager?.MissionCount.ToString() ?? ""} {status}";
     }
 
 }

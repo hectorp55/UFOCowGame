@@ -15,11 +15,11 @@ public class GameManager : MonoBehaviour {
 
     void Awake()
     {
-        if (FindObjectsOfType<GameManager>().Length == 1) {
+        if (GameObject.FindGameObjectsWithTag(TagConstants.GameManager).Length == 1) {
             DontDestroyOnLoad(gameObject); 
         }
         else {
-            Destroy(gameObject); 
+            Destroy(gameObject);
         }
     }
 
@@ -57,9 +57,9 @@ public class GameManager : MonoBehaviour {
     }
 
     public void CompleteMission() {
-        SceneManager.LoadScene("Retry");
-
         IsMissionSuccessful = IsMissionSuccessful && GoodCowCount == CapturedCows.Count;
+
+        SceneManager.LoadScene("Retry");
     }
 
     public void CaptureCow(GameObject cow) {

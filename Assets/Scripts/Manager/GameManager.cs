@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class GameManager : MonoBehaviour {
     public List<Cow> MissionCows { get; private set; }
@@ -10,13 +11,15 @@ public class GameManager : MonoBehaviour {
     public int BadCowCount { get; private set; }
     public bool IsMissionSuccessful { get; private set; }
     public int MissionCount { get; private set; }
-
-    public GameObject CowPrefab; 
+    public Dictionary<string, GameObject> CowPrefabs { get; private set; } 
 
     void Awake()
     {
         if (GameObject.FindGameObjectsWithTag(TagConstants.GameManager).Length == 1) {
-            DontDestroyOnLoad(gameObject); 
+            DontDestroyOnLoad(gameObject);
+
+            var prefabs = Resources.LoadAll<GameObject>("Cows");
+            CowPrefabs = prefabs.ToDictionary(fab => fab.name, fab => fab);
         }
         else {
             Destroy(gameObject);
@@ -77,10 +80,13 @@ public class GameManager : MonoBehaviour {
     private void SetUpCow() {
         int correctCow = Random.Range(0, 2); // (Inclusive, Exclusive) -.-
         float startingLocation = Random.Range(ScreenConstants.LeftBound, ScreenConstants.RightBound);
+        int randomPrefab = Random.Range(0, CowPrefabs.Count);
 
         // Calculate Cow Spawn Point
         Vector3 spawnLocation = Vector3.right * startingLocation;
-        Cow newCow = new Cow(correctCow == 1, spawnLocation);
+
+        // Add Cow To Mission
+        Cow newCow = new Cow(correctCow == 1, spawnLocation, CowPrefabs.ElementAt(randomPrefab).Key);
         MissionCows.Add(newCow);
 
         // Update Cow Counts
@@ -94,7 +100,7 @@ public class GameManager : MonoBehaviour {
 
     private GameObject SpawnCow(Cow cow, GameObject parent) {
         // Spawn Cow
-        GameObject spawnedCow = Instantiate(CowPrefab, parent.transform);
+        GameObject spawnedCow = Instantiate(CowPrefabs[cow.type], parent.transform);
         
         // Place in Random Spot
         spawnedCow.transform.localPosition = cow.spawnLocation;

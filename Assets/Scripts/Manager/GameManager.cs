@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour {
         // Generate Cows for Mission
         int cowsInField = Random.Range(1, 5);
         for(int i = 0; i < cowsInField; i++) {
-            SetUpCow();
+            Cow setCow = SetUpCow();
         }
 
         // Display Report
@@ -77,8 +77,8 @@ public class GameManager : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    private void SetUpCow() {
-        int correctCow = Random.Range(0, 2); // (Inclusive, Exclusive) -.-
+    private Cow SetUpCow() {
+        int correctCow = MissionCows.Count == 0 ? 1 : Random.Range(0, 2); // The first cow is always correct
         float startingLocation = Random.Range(ScreenConstants.LeftBound, ScreenConstants.RightBound);
         int randomPrefab = Random.Range(0, CowPrefabs.Count);
 
@@ -96,6 +96,8 @@ public class GameManager : MonoBehaviour {
         } else {
             BadCowCount++;
         }
+
+        return newCow;
     }
 
     private GameObject SpawnCow(Cow cow, GameObject parent) {

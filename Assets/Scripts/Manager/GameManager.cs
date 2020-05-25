@@ -12,15 +12,24 @@ public class GameManager : MonoBehaviour {
     public bool IsMissionSuccessful { get; private set; }
     public int MissionCount { get; private set; }
     public Dictionary<string, GameObject> CowPrefabs { get; private set; } 
+    public List<Vector3> PossibleSpawnLocations { get; private set; } 
+    public List<Vector3> MissionSpawnLocations { get; private set; } 
 
     void Awake()
     {
+        // Initialize
         if (GameObject.FindGameObjectsWithTag(TagConstants.GameManager).Length == 1) {
             DontDestroyOnLoad(gameObject);
 
             var prefabs = Resources.LoadAll<GameObject>("Cows");
             CowPrefabs = prefabs.ToDictionary(fab => fab.name, fab => fab);
+
+            PossibleSpawnLocations = new List<Vector3>();
+            for (float i = ScreenConstants.LeftBound; i <= ScreenConstants.RightBound; i+=ScreenConstants.CowSpawnSpace) {
+                PossibleSpawnLocations.Add(Vector3.right * i);
+            }
         }
+        // Destroy
         else {
             Destroy(gameObject);
         }
@@ -38,11 +47,14 @@ public class GameManager : MonoBehaviour {
         BadCowCount = 0;
         IsMissionSuccessful = true;
         MissionCount++;
+        MissionSpawnLocations = PossibleSpawnLocations;
         
         // Generate Cows for Mission
         int cowsInField = Random.Range(1, 5);
         for(int i = 0; i < cowsInField; i++) {
+            // Add Cow To Mission
             Cow setCow = SetUpCow();
+            MissionCows.Add(setCow);
         }
 
         // Display Report
@@ -79,15 +91,15 @@ public class GameManager : MonoBehaviour {
 
     private Cow SetUpCow() {
         int correctCow = MissionCows.Count == 0 ? 1 : Random.Range(0, 2); // The first cow is always correct
-        float startingLocation = Random.Range(ScreenConstants.LeftBound, ScreenConstants.RightBound);
+        int startingLocation = Random.Range(0, MissionSpawnLocations.Count);
         int randomPrefab = Random.Range(0, CowPrefabs.Count);
 
-        // Calculate Cow Spawn Point
-        Vector3 spawnLocation = Vector3.right * startingLocation;
+        // Get Cow Spawn Point and Remove from List
+        Vector3 spawnLocation = MissionSpawnLocations[startingLocation];
+        MissionSpawnLocations.RemoveAt(startingLocation);
 
-        // Add Cow To Mission
+        // Create Cow
         Cow newCow = new Cow(correctCow == 1, spawnLocation, CowPrefabs.ElementAt(randomPrefab).Key);
-        MissionCows.Add(newCow);
 
         // Update Cow Counts
         newCow.correctCow = correctCow > 0;

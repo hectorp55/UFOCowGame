@@ -4,4 +4,5 @@
     public const string Pasture = "Pasture";
     public const string MissionReport = "MissionReport";
     public const string GameManager = "GameManager";
+    public const string Floor = "Floor";
 }

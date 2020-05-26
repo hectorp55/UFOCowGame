@@ -12,12 +12,15 @@ public class CowController : MonoBehaviour
     private float waitDuration;
     private float actionDuration;
     private CowActions cowAction;
+    private bool isGrounded;
 
     void Awake() {
         waitDuration = Random.Range(2f, 5f);
         actionDuration = Random.Range(1f, 2f);
 
         cowAction = GetRandomCowAction();
+
+        isGrounded = true;
     }
 
     void Start() {
@@ -25,48 +28,63 @@ public class CowController : MonoBehaviour
     }
 
     void Update() {
-        cycleTimer += Time.deltaTime;
+        // If cow is on the ground
+        if (isGrounded) {
+            cycleTimer += Time.deltaTime;
 
-        if(cycleTimer > waitDuration + actionDuration) {
+            if(cycleTimer > waitDuration + actionDuration) {
             // Restart Cycle
             cycleTimer = 0;
             cowAction = GetRandomCowAction();
-        } 
-        // else if beam is on
-            // RunAwayFromBeam()
-        else if (cycleTimer > waitDuration && cycleTimer < waitDuration + actionDuration) {
-            // Do Random Cow Action
-            switch(cowAction) {
-                case CowActions.EatGrass:
-                EatGrass();
-                break;
-                case CowActions.WalkLeft:
-                WalkLeft();
-                break;
-                case CowActions.WalkRight:
-                WalkRight();
-                break;
+            } 
+            // else if beam is on
+                // RunAwayFromBeam()
+            else if (cycleTimer > waitDuration && cycleTimer < waitDuration + actionDuration) {
+                // Do Random Cow Action
+                switch(cowAction) {
+                    case CowActions.EatGrass:
+                    EatGrass();
+                    break;
+                    case CowActions.WalkLeft:
+                    WalkLeft();
+                    break;
+                    case CowActions.WalkRight:
+                    WalkRight();
+                    break;
+                }
             }
         }
     }
+
+  void OnCollisionEnter2D(Collision2D collision){
+      if (collision.gameObject.CompareTag(TagConstants.Floor)) {
+            isGrounded = true;
+      }
+  }
+  
+  void OnCollisionExit2D(Collision2D collision){
+      if (collision.gameObject.CompareTag(TagConstants.Floor)) {
+            isGrounded = false;
+      }
+  }
 
     public void Moo() {
         mooAudioSource.Play(0);
     }
 
-    public void WalkLeft() {
+    private void WalkLeft() {
         Walk(Vector3.left);
     }
 
-    public void WalkRight() {
+    private void WalkRight() {
         Walk(Vector3.right);
     }
 
-    public void EatGrass() {
+    private void EatGrass() {
         // Trigger Eat Grass Animation
     }
 
-    public void RunAwayFromBeam() {
+    private void RunAwayFromBeam() {
         // Walk(Vector3 awayFromBeam);
     }
 

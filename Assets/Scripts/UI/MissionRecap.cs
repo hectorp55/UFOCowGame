@@ -6,6 +6,8 @@ public class MissionRecap : MonoBehaviour
 {
     public Image cowIcon;
     public Text missionStatus;
+    public Text currentScore;
+    public Text highScore;
 
     private GameManager manager;
 
@@ -23,6 +25,12 @@ public class MissionRecap : MonoBehaviour
         // Display Mission Status
         string status = manager?.IsMissionSuccessful ?? false ? "Success" : "Failure";
         missionStatus.text = $"Mission {manager?.MissionCount.ToString() ?? ""} {status}";
+        currentScore.text = manager?.CurrentScore.ToString() ?? "0";
+
+        // Display Highscore
+        bool isCurrentHighscore = Scoring.UpdateHighScore(manager?.CurrentScore ?? 0);
+        highScore.text = Scoring.GetCurrentHighScore().ToString();
+        if (isCurrentHighscore) highScore.color = Color.green;
     }
 
 }

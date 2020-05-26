@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour {
     public Dictionary<string, GameObject> CowPrefabs { get; private set; } 
     public List<Vector3> PossibleSpawnLocations;
     public List<Vector3> MissionSpawnLocations { get; private set; } 
+    public int CurrentScore { get; private set; }
 
     void Awake()
     {
@@ -28,6 +29,8 @@ public class GameManager : MonoBehaviour {
             for (float i = ScreenConstants.LeftBound; i <= ScreenConstants.RightBound; i+=ScreenConstants.CowSpawnSpace) {
                 PossibleSpawnLocations.Add(Vector3.right * i);
             }
+
+            CurrentScore = 0;
         }
         // Destroy
         else {
@@ -79,6 +82,9 @@ public class GameManager : MonoBehaviour {
 
     public void CompleteMission() {
         IsMissionSuccessful = IsMissionSuccessful && GoodCowCount == CapturedCows.Count;
+        
+        // Update Current Score
+        CurrentScore = Scoring.UpdateScore(CurrentScore, IsMissionSuccessful, CapturedCows);
 
         SceneManager.LoadScene("Retry");
     }

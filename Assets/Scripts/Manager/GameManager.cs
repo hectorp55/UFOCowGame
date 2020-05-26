@@ -102,7 +102,8 @@ public class GameManager : MonoBehaviour {
     }
 
     private Cow SetUpCow() {
-        int correctCow = MissionCows.Count == 0 ? 1 : Random.Range(0, 2); // The first cow is always correct
+        // The first cow is always correct and the second cow is always wrong
+        int correctCow = MissionCows.Count == 0 ? 1 : MissionCows.Count == 1 ? 0 : Random.Range(0, 2);
         int startingLocation = Random.Range(0, MissionSpawnLocations.Count);
         int randomPrefab = Random.Range(0, CowPrefabs.Count);
 

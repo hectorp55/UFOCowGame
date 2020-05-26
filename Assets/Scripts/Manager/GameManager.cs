@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
     public bool IsMissionSuccessful { get; private set; }
     public int MissionCount { get; private set; }
     public Dictionary<string, GameObject> CowPrefabs { get; private set; } 
-    public List<Vector3> PossibleSpawnLocations { get; private set; } 
+    public List<Vector3> PossibleSpawnLocations;
     public List<Vector3> MissionSpawnLocations { get; private set; } 
 
     void Awake()
@@ -36,7 +36,14 @@ public class GameManager : MonoBehaviour {
     }
 
     public static GameManager GetManager() {
-        return GameObject.FindObjectOfType<GameManager>();
+        GameObject manager = GameObject.FindWithTag(TagConstants.GameManager);
+        
+        if (manager == null) {
+            SceneManager.LoadScene("Mission");
+            return null;
+        } else {
+            return manager.GetComponent<GameManager>();
+        }
     }
 
     public void SetupNewMission(GameObject missionReport) {

@@ -8,6 +8,8 @@ TagManager:
   - Pasture
   - MissionReport
   - GameManager
+  - Floor
+  - Beam
   layers:
   - Default
   - TransparentFX

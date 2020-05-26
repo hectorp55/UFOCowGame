@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CowController : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    public float safeBeamDistance = 5f;
+    public float moveSpeed = 3f;
     public Cow cow;
     AudioSource mooAudioSource;
 
@@ -13,13 +14,12 @@ public class CowController : MonoBehaviour
     private float actionDuration;
     private CowActions cowAction;
     private bool isGrounded;
+    private GameObject ufoBeam;
 
     void Awake() {
         waitDuration = Random.Range(2f, 5f);
         actionDuration = Random.Range(1f, 2f);
-
         cowAction = GetRandomCowAction();
-
         isGrounded = true;
     }
 
@@ -30,17 +30,21 @@ public class CowController : MonoBehaviour
     void Update() {
         // If cow is on the ground
         if (isGrounded) {
+            // If Beam is ON within range runaway to safe distance
+            if (IsBeamToClose()) {
+                RunAwayFromBeam();
+                return;
+            }
+            
+            // Cow action cycle
             cycleTimer += Time.deltaTime;
-
             if(cycleTimer > waitDuration + actionDuration) {
-            // Restart Cycle
-            cycleTimer = 0;
-            cowAction = GetRandomCowAction();
+                // Restart Cycle
+                cycleTimer = 0;
+                cowAction = GetRandomCowAction();
             } 
-            // else if beam is on
-                // RunAwayFromBeam()
+            // Do Random Cow Action
             else if (cycleTimer > waitDuration && cycleTimer < waitDuration + actionDuration) {
-                // Do Random Cow Action
                 switch(cowAction) {
                     case CowActions.EatGrass:
                     EatGrass();
@@ -56,20 +60,26 @@ public class CowController : MonoBehaviour
         }
     }
 
-  void OnCollisionEnter2D(Collision2D collision){
-      if (collision.gameObject.CompareTag(TagConstants.Floor)) {
-            isGrounded = true;
-      }
-  }
-  
-  void OnCollisionExit2D(Collision2D collision){
-      if (collision.gameObject.CompareTag(TagConstants.Floor)) {
-            isGrounded = false;
-      }
-  }
+    void OnCollisionEnter2D(Collision2D collision){
+        if (collision.gameObject.CompareTag(TagConstants.Floor)) {
+                isGrounded = true;
+        }
+    }
+    
+    void OnCollisionExit2D(Collision2D collision){
+        if (collision.gameObject.CompareTag(TagConstants.Floor)) {
+                isGrounded = false;
+        }
+    }
 
     public void Moo() {
         mooAudioSource.Play(0);
+    }
+
+    private bool IsBeamToClose() {
+        ufoBeam = GameObject.FindWithTag(TagConstants.Beam);
+
+        return ufoBeam != null && ufoBeam.activeSelf && Vector3.Distance(ufoBeam.transform.position, transform.position) < safeBeamDistance;
     }
 
     private void WalkLeft() {
@@ -85,7 +95,10 @@ public class CowController : MonoBehaviour
     }
 
     private void RunAwayFromBeam() {
-        // Walk(Vector3 awayFromBeam);
+        Vector3 awayFromBeam = transform.position - ufoBeam.transform.position;
+        awayFromBeam.y = 0;
+
+        Walk(awayFromBeam.normalized);
     }
 
     private void Walk(Vector3 direction) {

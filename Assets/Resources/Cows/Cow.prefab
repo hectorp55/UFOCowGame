@@ -231,3 +231,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9845e3f154b0d4bdb829a2f67a7b6f0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  safeBeamDistance: 5
+  moveSpeed: 3

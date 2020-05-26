@@ -21,6 +21,7 @@ public class CowController : MonoBehaviour
         actionDuration = Random.Range(1f, 2f);
         cowAction = GetRandomCowAction();
         isGrounded = true;
+        moveSpeed = Difficulty.CowSpeed(GameManager.GetManager().MissionCount);
     }
 
     void Start() {

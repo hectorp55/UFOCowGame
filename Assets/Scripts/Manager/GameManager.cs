@@ -54,10 +54,10 @@ public class GameManager : MonoBehaviour {
         BadCowCount = 0;
         IsMissionSuccessful = true;
         MissionCount++;
-        MissionSpawnLocations = PossibleSpawnLocations;
+        MissionSpawnLocations = new List<Vector3>(PossibleSpawnLocations);
         
         // Generate Cows for Mission
-        int cowsInField = Random.Range(1, 5);
+        int cowsInField = Difficulty.CowCount(MissionCount);
         for(int i = 0; i < cowsInField; i++) {
             // Add Cow To Mission
             Cow setCow = SetUpCow();
@@ -72,7 +72,6 @@ public class GameManager : MonoBehaviour {
 
     public void StartNewMission(GameObject pasture) {
         // Spawn Cows in Pasture from Mission Report
-        int cowsInField = Random.Range(1, 5);
         foreach(Cow cowToSpawn in MissionCows) {
             SpawnCow(cowToSpawn, pasture);
         }

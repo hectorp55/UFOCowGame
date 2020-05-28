@@ -6,4 +6,5 @@ public class InputConstants
 {
     public const string Abduct = "Abduct";
     public const string Horizontal = "Horizontal";
+    public const string ThrowBack = "ThrowBack";
 }

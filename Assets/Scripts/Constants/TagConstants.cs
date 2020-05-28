@@ -6,4 +6,5 @@
     public const string GameManager = "GameManager";
     public const string Floor = "Floor";
     public const string Beam = "Beam";
+    public const string MissionStatus = "MissionStatus";
 }

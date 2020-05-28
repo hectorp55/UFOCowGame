@@ -6,7 +6,7 @@ using System.Linq;
 
 public class GameManager : MonoBehaviour {
     public List<Cow> MissionCows { get; private set; }
-    public List<Cow> CapturedCows { get; private set; }
+    public Stack<Cow> CapturedCows { get; private set; }
     public int GoodCowCount { get; private set; }
     public int BadCowCount { get; private set; }
     public bool IsMissionSuccessful { get; private set; }
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour {
     public void SetupNewMission(GameObject missionReport) {
         // Reset Values
         MissionCows = new List<Cow>();
-        CapturedCows = new List<Cow>();
+        CapturedCows = new Stack<Cow>();
         GoodCowCount = 0;
         BadCowCount = 0;
         IsMissionSuccessful = true;
@@ -90,11 +90,25 @@ public class GameManager : MonoBehaviour {
     }
 
     public void CaptureCow(GameObject cow) {
-        // Add Score to Total
         CowController captueredCow = cow.GetComponent<CowController>();
-        CapturedCows.Add(captueredCow.cow);
-        IsMissionSuccessful = IsMissionSuccessful && captueredCow.cow.correctCow;
+        CapturedCows.Push(captueredCow.cow);
         Destroy(cow);
+
+        GameObject.FindWithTag(TagConstants.MissionStatus).GetComponent<MissionStatus>().UpdateInventoryCow(captueredCow.cow);
+    }
+
+    public void ThrowBackCow(Vector3 throwbackSpot) {
+        if (CapturedCows.Count == 0) {
+            return;
+        }
+
+        Cow throwBack = CapturedCows.Pop();
+        throwBack.spawnLocation = throwbackSpot;
+
+        Cow nextCow = CapturedCows.Count == 0 ? null : CapturedCows.Peek();
+        GameObject.FindWithTag(TagConstants.MissionStatus).GetComponent<MissionStatus>().UpdateInventoryCow(nextCow);
+
+        SpawnCow(throwBack, GameObject.FindWithTag(TagConstants.Pasture));
     }
 
     public void GameOver() {

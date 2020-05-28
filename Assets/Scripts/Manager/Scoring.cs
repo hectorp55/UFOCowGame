@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Scoring
 {
-    public static int UpdateScore(int currentScore, bool isMissionComplete, List<Cow> capturedCows) {
+    public static int UpdateScore(int currentScore, bool isMissionComplete, Stack<Cow> capturedCows) {
         int missionCompletePoints = isMissionComplete ? ScoreConstants.MissionComplete : 0;
         
         int goodCowPoints = 0;

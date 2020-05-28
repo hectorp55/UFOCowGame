@@ -7,6 +7,7 @@ public class Ufo : MonoBehaviour
     public float moveSpeed = 5f;
     public GameObject beam;
     public GameManager manager;
+    public Cow lastCapturedCow;
 
     void Start()
     {
@@ -42,5 +43,10 @@ public class Ufo : MonoBehaviour
         if (cow.CompareTag(TagConstants.Cow)) {
             manager.CaptureCow(cow);
         }
+    }
+
+    public void Throwback() {
+        Vector3 throwbackSpot = new Vector3(transform.position.x, 6.5f, 0); 
+        manager.ThrowBackCow(throwbackSpot);
     }
 }

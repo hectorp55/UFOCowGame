@@ -16,7 +16,7 @@ public class MissionRecap : MonoBehaviour
         manager = GameManager.GetManager();
 
         // Display Cow Icons
-        List<Cow> capturedCows = manager?.CapturedCows ?? new List<Cow>();
+        Stack<Cow> capturedCows = manager?.CapturedCows ?? new Stack<Cow>();
         foreach (Cow cow in capturedCows) {
             Image createdCow = Instantiate(cowIcon, gameObject.transform);
             createdCow.color = cow.correctCow ? Color.green : Color.red;

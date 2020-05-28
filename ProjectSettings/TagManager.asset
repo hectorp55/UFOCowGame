@@ -10,6 +10,7 @@ TagManager:
   - GameManager
   - Floor
   - Beam
+  - MissionStatus
   layers:
   - Default
   - TransparentFX

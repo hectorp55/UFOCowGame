@@ -10,6 +10,7 @@ public class UfoController : MonoBehaviour
     {
         ListenForMovement();
         ListenForAbduction();
+        ListenForThrowBack();
     }
 
     private void ListenForMovement() {
@@ -22,6 +23,12 @@ public class UfoController : MonoBehaviour
         }
         if (Input.GetButtonUp(InputConstants.Abduct)) {
             ufo.BeamOff();
+        }
+    }
+
+    private void ListenForThrowBack() {
+        if (Input.GetButtonDown(InputConstants.ThrowBack)) {
+            ufo.Throwback();
         }
     }
 }

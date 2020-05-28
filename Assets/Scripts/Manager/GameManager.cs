@@ -81,6 +81,9 @@ public class GameManager : MonoBehaviour {
     }
 
     public void CompleteMission() {
+        foreach (Cow cow in CapturedCows) {
+            IsMissionSuccessful = IsMissionSuccessful && cow.correctCow;
+        }
         IsMissionSuccessful = IsMissionSuccessful && GoodCowCount == CapturedCows.Count;
         
         // Update Current Score

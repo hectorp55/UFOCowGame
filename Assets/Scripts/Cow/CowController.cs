@@ -17,11 +17,14 @@ public class CowController : MonoBehaviour
     private GameObject ufoBeam;
 
     void Awake() {
-        waitDuration = Random.Range(2f, 5f);
+        int currentLevel = GameManager.GetManager().MissionCount;
+        Range waitDurationRange = Difficulty.CowWaitTime(currentLevel);
+
+        waitDuration = Random.Range(waitDurationRange.Min, waitDurationRange.Max);
         actionDuration = Random.Range(1f, 2f);
         cowAction = GetRandomCowAction();
         isGrounded = true;
-        moveSpeed = Difficulty.CowSpeed(GameManager.GetManager().MissionCount);
+        moveSpeed = Difficulty.CowSpeed(currentLevel);
     }
 
     void Start() {

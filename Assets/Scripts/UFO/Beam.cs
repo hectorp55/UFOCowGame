@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Beam : MonoBehaviour
 {
-    public const float liftSpeed = 6f;
+    public const float liftSpeed = 5f;
 
     public bool isCowInRange;
     public Rigidbody2D cowToLift;

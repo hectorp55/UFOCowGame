@@ -16,7 +16,9 @@ public class Ufo : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        CaptureCow(other.gameObject);
+        if (beam.activeSelf) {
+            CaptureCow(other.gameObject);
+        }
     }
 
     public void Hover(float horizontalInput) {

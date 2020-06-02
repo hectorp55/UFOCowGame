@@ -32,6 +32,26 @@ public class CowController : MonoBehaviour
     }
 
     void Update() {
+        UpdateMovementCycle();
+    }
+
+    void OnCollisionEnter2D(Collision2D collision){
+        if (collision.gameObject.CompareTag(TagConstants.Floor)) {
+                isGrounded = true;
+        }
+    }
+    
+    void OnCollisionExit2D(Collision2D collision){
+        if (collision.gameObject.CompareTag(TagConstants.Floor)) {
+                isGrounded = false;
+        }
+    }
+
+    public void Moo() {
+        mooAudioSource.Play(0);
+    }
+
+    public void UpdateMovementCycle() {
         // If cow is on the ground
         if (isGrounded) {
             // If Beam is ON within range runaway to safe distance
@@ -62,22 +82,6 @@ public class CowController : MonoBehaviour
                 }
             }
         }
-    }
-
-    void OnCollisionEnter2D(Collision2D collision){
-        if (collision.gameObject.CompareTag(TagConstants.Floor)) {
-                isGrounded = true;
-        }
-    }
-    
-    void OnCollisionExit2D(Collision2D collision){
-        if (collision.gameObject.CompareTag(TagConstants.Floor)) {
-                isGrounded = false;
-        }
-    }
-
-    public void Moo() {
-        mooAudioSource.Play(0);
     }
 
     private bool IsBeamToClose() {

@@ -29,6 +29,7 @@ public class Beam : MonoBehaviour
     }
 
     private void liftCow(Rigidbody2D cowRigidbody) {
-        cowRigidbody.velocity = Vector2.up * liftSpeed;
+        Vector3 liftVector = gameObject.transform.parent.position - cowRigidbody.transform.position;
+        cowRigidbody.velocity = liftVector.normalized * liftSpeed;
     }
 }

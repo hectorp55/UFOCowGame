@@ -114,10 +114,10 @@ public class CowController : MonoBehaviour
         transform.Translate(movement);
 
         if (transform.position.x <= ScreenConstants.LeftBound) {
-            transform.position = new Vector3(ScreenConstants.LeftBound, transform.position.y, transform.position.z);
+            transform.position = new Vector3(ScreenConstants.RightBound, transform.position.y, transform.position.z);
         }
         else if (transform.position.x >= ScreenConstants.RightBound) {
-            transform.position = new Vector3(ScreenConstants.RightBound, transform.position.y, transform.position.z);
+            transform.position = new Vector3(ScreenConstants.LeftBound, transform.position.y, transform.position.z);
         }
     }
 

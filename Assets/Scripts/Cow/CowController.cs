@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CowController : MonoBehaviour
 {
-    public float safeBeamDistance = 5f;
+    public float safeBeamDistanceFar = 10f;
+    public float safeBeamDistanceClose = 5f;
     public float moveSpeed = 3f;
     public Cow cow;
     AudioSource mooAudioSource;
@@ -59,6 +60,10 @@ public class CowController : MonoBehaviour
                 RunAwayFromBeam();
                 return;
             }
+            if (IsBeamToFar()) {
+                RunTowardsBeam();
+                return;
+            }
             
             // Cow action cycle
             cycleTimer += Time.deltaTime;
@@ -87,7 +92,13 @@ public class CowController : MonoBehaviour
     private bool IsBeamToClose() {
         ufoBeam = GameObject.FindWithTag(TagConstants.Beam);
 
-        return ufoBeam != null && ufoBeam.activeSelf && Vector3.Distance(ufoBeam.transform.position, transform.position) < safeBeamDistance;
+        return ufoBeam != null && ufoBeam.activeSelf && Vector3.Distance(ufoBeam.transform.position, transform.position) < safeBeamDistanceClose;
+    }
+
+    private bool IsBeamToFar() {
+        ufoBeam = GameObject.FindWithTag(TagConstants.Beam);
+
+        return ufoBeam != null && ufoBeam.activeSelf && Vector3.Distance(ufoBeam.transform.position, transform.position) > safeBeamDistanceFar;
     }
 
     private void WalkLeft() {
@@ -107,6 +118,13 @@ public class CowController : MonoBehaviour
         awayFromBeam.y = 0;
 
         Walk(awayFromBeam.normalized);
+    }
+
+    private void RunTowardsBeam() {
+        Vector3 towardsBeam = ufoBeam.transform.position - transform.position;
+        towardsBeam.y = 0;
+
+        Walk(towardsBeam.normalized);
     }
 
     private void Walk(Vector3 direction) {

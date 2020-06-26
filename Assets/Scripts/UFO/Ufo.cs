@@ -9,9 +9,12 @@ public class Ufo : MonoBehaviour
     public GameManager manager;
     public Cow lastCapturedCow;
 
+    private Animator animator;
+
     void Start()
     {
         manager = GameManager.GetManager();
+        animator = GetComponent<Animator>();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -22,6 +25,9 @@ public class Ufo : MonoBehaviour
     }
 
     public void Hover(float horizontalInput) {
+        //Update Animator Variables
+        animator.SetFloat(AnimatorConstants.InputDirection, horizontalInput);
+
         Vector3 movement = Vector3.right * Time.deltaTime * horizontalInput * moveSpeed;
         transform.Translate(movement);
 
@@ -50,5 +56,13 @@ public class Ufo : MonoBehaviour
     public void Throwback() {
         Vector3 throwbackSpot = new Vector3(transform.position.x, 6.5f, 0); 
         manager.ThrowBackCow(throwbackSpot);
+    }
+
+    public void FlyHome() {
+        animator.SetTrigger(AnimatorConstants.GoHome);
+    }
+
+    public void CompleteMission() {
+        GameManager.GetManager().CompleteMission();
     }
 }

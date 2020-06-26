@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class MainButtons : MonoBehaviour
 {
+    public GameObject ufo;
+
     public void ReturnHome() {
-        GameManager.GetManager().CompleteMission();
+        ufo.GetComponent<Ufo>().FlyHome();
     }
 }

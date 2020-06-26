@@ -286,6 +286,7 @@ GameObject:
   - component: {fileID: 233480719}
   - component: {fileID: 233480718}
   - component: {fileID: 233480715}
+  - component: {fileID: 233480716}
   m_Layer: 0
   m_Name: UFO
   m_TagString: Untagged
@@ -349,7 +350,7 @@ SpriteRenderer:
   m_SortingLayerID: -574837405
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ef212d7aad2ba49bf8dd35e2076a1547, type: 3}
+  m_Sprite: {fileID: 760776873134828032, guid: be593602952d64e2faf81605947f212e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -360,6 +361,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &233480716
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233480713}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9603a70ab918e4da1a189dfa4daf94d6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &233480717
 Transform:
   m_ObjectHideFlags: 0
@@ -704,6 +724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa22ca2fa3b624f9abea611fd8b78ca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ufo: {fileID: 233480713}
 --- !u!114 &1115688206
 MonoBehaviour:
   m_ObjectHideFlags: 0

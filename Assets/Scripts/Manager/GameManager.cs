@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
     public List<Vector3> PossibleSpawnLocations;
     public List<Vector3> MissionSpawnLocations { get; private set; } 
     public int CurrentScore { get; private set; }
+    public GameObject Pointer;
 
     void Awake()
     {
@@ -166,6 +167,8 @@ public class GameManager : MonoBehaviour {
         }
 
         // Show Correct Cows
-        spawnedCow.GetComponent<SpriteRenderer>().color = cow.correctCow ? Color.green : Color.red;
+        if (cow.correctCow) {
+            Instantiate(Pointer, spawnedCow.transform);
+        }
     }
 }

@@ -6,28 +6,27 @@ public class Beam : MonoBehaviour
 {
     public const float liftSpeed = 5f;
 
-    public bool isCowInRange;
-    public Rigidbody2D cowToLift;
+    public List<Rigidbody2D> CowsInBeam;
+
 
     void Update() {
-        if (isCowInRange) {
-            liftCow(cowToLift);
+        foreach(var cow in CowsInBeam) {
+            liftCow(cow);
         }
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        cowToLift = other.gameObject.GetComponent<Rigidbody2D>();
+        var cowToLift = other.gameObject.GetComponent<Rigidbody2D>();
 		other.gameObject.GetComponent<CowController>().Moo();
         other.gameObject.GetComponent<Animator>().SetBool(AnimatorConstants.IsSpooked, true);
-        isCowInRange = true;
+        CowsInBeam.Add(cowToLift);
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        cowToLift = null;
         other.gameObject.GetComponent<Animator>().SetBool(AnimatorConstants.IsSpooked, false);
-        isCowInRange = false;
+        CowsInBeam.Remove(other.gameObject.GetComponent<Rigidbody2D>());
     }
 
     private void liftCow(Rigidbody2D cowRigidbody) {

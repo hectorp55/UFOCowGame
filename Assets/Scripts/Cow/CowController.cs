@@ -6,7 +6,7 @@ public class CowController : MonoBehaviour
 {
     public float safeBeamDistanceFar = 10f;
     public float safeBeamDistanceClose = 5f;
-    public float moveSpeed = 3f;
+    public float maxSpeed = 3f;
     public Cow cow;
     AudioSource mooAudioSource;
 
@@ -17,6 +17,9 @@ public class CowController : MonoBehaviour
     private bool isGrounded;
     private GameObject ufoBeam;
 
+    private const float runSpeed = 1f;
+    private const float walkSpeed = 0.5f;
+
     void Awake() {
         int currentLevel = GameManager.GetManager().MissionCount;
         Range waitDurationRange = Difficulty.CowWaitTime(currentLevel);
@@ -25,7 +28,7 @@ public class CowController : MonoBehaviour
         actionDuration = Random.Range(1f, 2f);
         cowAction = GetRandomCowAction();
         isGrounded = true;
-        moveSpeed = Difficulty.CowSpeed(currentLevel);
+        maxSpeed = Difficulty.CowSpeed(currentLevel);
     }
 
     void Start() {
@@ -77,15 +80,18 @@ public class CowController : MonoBehaviour
                 switch(cowAction) {
                     case CowActions.EatGrass:
                     EatGrass();
-                    break;
+                    return;
                     case CowActions.WalkLeft:
                     WalkLeft();
-                    break;
+                    return;
                     case CowActions.WalkRight:
                     WalkRight();
-                    break;
+                    return;
                 }
             }
+
+            //Set Animation Variables
+            GetComponent<Animator>().SetFloat(AnimatorConstants.CowSpeed, 0);
         }
     }
 
@@ -102,11 +108,11 @@ public class CowController : MonoBehaviour
     }
 
     private void WalkLeft() {
-        Walk(Vector3.left);
+        Walk(Vector3.left, walkSpeed);
     }
 
     private void WalkRight() {
-        Walk(Vector3.right);
+        Walk(Vector3.right, walkSpeed);
     }
 
     private void EatGrass() {
@@ -117,18 +123,25 @@ public class CowController : MonoBehaviour
         Vector3 awayFromBeam = transform.position - ufoBeam.transform.position;
         awayFromBeam.y = 0;
 
-        Walk(awayFromBeam.normalized);
+        Walk(awayFromBeam.normalized, runSpeed);
     }
 
     private void RunTowardsBeam() {
         Vector3 towardsBeam = ufoBeam.transform.position - transform.position;
         towardsBeam.y = 0;
 
-        Walk(towardsBeam.normalized);
+        Walk(towardsBeam.normalized, runSpeed);
     }
 
-    private void Walk(Vector3 direction) {
-        Vector3 movement = direction * Time.deltaTime * moveSpeed;
+    private void Walk(Vector3 direction, float speed) {
+        //Set Animation Variables
+        GetComponent<Animator>().SetFloat(AnimatorConstants.CowSpeed, speed);
+
+        //Flip sprite based on direction
+        var isFacingLeft = direction.x < 0;
+        GetComponent<SpriteRenderer>().flipX = isFacingLeft;
+
+        Vector3 movement = direction * Time.deltaTime * speed * maxSpeed;
         transform.Translate(movement);
 
         if (transform.position.x <= ScreenConstants.LeftBound) {

@@ -19,12 +19,14 @@ public class Beam : MonoBehaviour
     {
         cowToLift = other.gameObject.GetComponent<Rigidbody2D>();
 		other.gameObject.GetComponent<CowController>().Moo();
+        other.gameObject.GetComponent<Animator>().SetBool(AnimatorConstants.IsSpooked, true);
         isCowInRange = true;
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
         cowToLift = null;
+        other.gameObject.GetComponent<Animator>().SetBool(AnimatorConstants.IsSpooked, false);
         isCowInRange = false;
     }
 

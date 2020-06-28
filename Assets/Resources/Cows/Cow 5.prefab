@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -1846415947849177264}
   - component: {fileID: 3554493704393624163}
   - component: {fileID: -5791843289471059043}
+  - component: {fileID: 8699072437355861664}
   m_Layer: 9
   m_Name: Cow 5
   m_TagString: Cow
@@ -96,7 +97,7 @@ SpriteRenderer:
   m_SortingLayerID: -419444833
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2077485903174922958, guid: 08d463f96fba04f26aa8bdbce51c846e, type: 3}
+  m_Sprite: {fileID: 2908619043479048308, guid: 08d463f96fba04f26aa8bdbce51c846e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -217,7 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   safeBeamDistanceFar: 10
   safeBeamDistanceClose: 5
-  moveSpeed: 3
+  maxSpeed: 3
 --- !u!61 &-5791843289471059043
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -235,7 +236,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.87, y: 1.48}
+    oldSize: {x: 1.9, y: 1.5}
     newSize: {x: 1.6, y: 1.6}
     adaptiveTilingThreshold: 0.5
     drawMode: 1
@@ -244,3 +245,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.1}
   m_EdgeRadius: 0
+--- !u!95 &8699072437355861664
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8074072847440284219}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 621232d0036f14665b0f1dee0943978c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
